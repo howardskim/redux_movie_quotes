@@ -14,7 +14,7 @@ class Nav extends Component {
         }
 
     render() {
-        console.log(this.props);
+        // console.log(this.props);
         return (
             <nav style={{padding: '0 10px'}}className="purple">
                 <div className="nav-wrapper">
