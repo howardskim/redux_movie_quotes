@@ -10,7 +10,7 @@ class Nav extends Component {
         if(auth){
             return <button onClick={signOut} className="btn red">Sign Out</button>
         }
-            return <button onClick={signIn} className="btn green-darken-1">Sign In</button>
+            return <Link to="/sign-in">Sign In</Link>
         }
 
     render() {
