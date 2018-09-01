@@ -24,12 +24,39 @@ export const signIn = credentials => async dispatch => {
 // export const signOut = () => ({type: types.SIGN_OUT});
 
 export const signOut = () => {
+    localStorage.removeItem('token')
     return {
         type: types.SIGN_OUT
     }
 }
 
 export const signUp = (credentials) => async dispatch => {
-    const response = await axios.post('http://api.reactprototypes.com/signup', credentials);
-    console.log('sign up response: ', response);
+    try {
+        const response = await axios.post('http://api.reactprototypes.com/signup', credentials);
+        localStorage.setItem('token', response.data.token)
+        dispatch({
+            type: types.SIGN_UP
+        })
+    } catch (error){
+        dispatch({
+            type: types.AUTH_ERROR,
+            error: 'Error creating account'
+        })
+    }
+}
+
+export const getMovieQuote = () => async dispatch => {
+    const axiosConfig = {
+        headers: {  // <-- we have to add a header to our request with a property of authorization that has the token
+            authorization: localStorage.getItem('token')
+        }
+    };
+
+    const response = await axios.get('http://api.reactprototypes.com', axiosConfig);
+
+    dispatch({
+        type: types.GET_MOVIE_QUOTE,
+        quote: response.data.message
+    })
+
 }

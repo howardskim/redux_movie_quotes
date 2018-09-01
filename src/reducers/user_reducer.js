@@ -12,6 +12,8 @@ export default (state = DEFAULT_STATE, action) => {
             auth: false,
             error: action.error
         }
+        case types.SIGN_UP:
+        
         case types.SIGN_IN :
         return {
             auth: true,
